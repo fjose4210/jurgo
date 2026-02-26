@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tres Letras (Web)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">3L</div>
+      <div>
+        <div class="title">TRES LETRAS</div>
+        <div class="subtitle">Forma palabras y suma puntos</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="statLabel">Mejor</div>
+        <div class="statValue" id="bestScore">0</div>
+      </div>
+      <div class="stat">
+        <div class="statLabel">Total</div>
+        <div class="statValue" id="totalScore">0</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="row between wrap gap">
+        <div class="slotWrap">
+          <div class="slotTitle">Letras base (orden obligatorio)</div>
+          <div class="slots" aria-label="Tragamonedas de letras">
+            <div class="slot" id="slot1"><span class="slotChar">-</span></div>
+            <div class="slot" id="slot2"><span class="slotChar">-</span></div>
+            <div class="slot" id="slot3"><span class="slotChar">-</span></div>
+          </div>
+          <div class="hint">La palabra debe contener las 3 letras en ese orden (no necesariamente juntas).</div>
+        </div>
+
+        <div class="timerWrap">
+          <div class="timerTitle">Tiempo</div>
+          <div class="timer" id="timer">00:30</div>
+          <div class="controls">
+            <button class="btn primary" id="btnStart">Empezar</button>
+            <button class="btn" id="btnRules">Reglas</button>
+            <button class="btn danger" id="btnReset">Reiniciar</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="play">
+        <label class="label" for="wordInput">Escribe una palabra</label>
+        <div class="inputRow">
+          <input id="wordInput" type="text" inputmode="text" autocomplete="off" placeholder="Ej: CARACAS" disabled />
+          <button class="btn success" id="btnSend" disabled>Enviar</button>
+        </div>
+
+        <div class="smallRow">
+          <div class="chip" id="chipLetters">Letras: - - -</div>
+          <div class="chip" id="chipRound">Ronda: 0</div>
+          <div class="chip" id="chipWordScore">+0</div>
+        </div>
+
+        <div class="msg" id="message" role="status" aria-live="polite"></div>
+
+        <div class="wordsBox">
+          <div class="wordsTitle">Palabras válidas en esta partida</div>
+          <ul class="wordsList" id="wordsList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>Modo: Web (Chrome/Safari). Guardado: localStorage.</div>
+      <div class="muted">Tip: Para “instalar” en el celular: Compartir → “Agregar a pantalla de inicio”.</div>
+    </footer>
+  </main>
+
+  <!-- MODAL REGLAS -->
+  <div class="modalBackdrop" id="rulesModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <div class="modalHeader">
+        <div>
+          <div class="modalTitle" id="rulesTitle">Reglas – TRES LETRAS</div>
+          <div class="modalSub">Resumen para la versión digital</div>
+        </div>
+        <button class="iconBtn" id="btnCloseRules" aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="modalBody">
+        <ol class="rules">
+          <li>Se generan 3 letras base aleatorias (incluye Ñ). El orden es fijo.</li>
+          <li>Escribe una palabra que contenga esas 3 letras en ese orden (no necesitan estar juntas).</li>
+          <li>No se permiten palabras compuestas con espacios o guiones.</li>
+          <li>Validación de existencia: la palabra debe estar en el diccionario local.</li>
+          <li>Puntaje: letras estándar 2 pts; especiales (Ñ, W, X, Y, Z) 4 pts.</li>
+          <li>Bonos: +5 (≥14 letras), +10 (≥16 letras), +15 (≥3 letras especiales).</li>
+          <li>Tienes 30 segundos por partida para enviar palabras (una por envío).</li>
+        </ol>
+
+        <div class="note">
+          <strong>Nota:</strong> El diccionario local se carga desde un JSON (sin llamadas externas).
+        </div>
+      </div>
+
+      <div class="modalFooter">
+        <button class="btn primary" id="btnOkRules">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
